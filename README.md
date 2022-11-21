@@ -17,6 +17,34 @@ I have tested many differential receivers (DIY, with standard 2N2222 or 2N3904 t
 
 With the right transistors or differential receiver chip, one could make a very clean setup! Feel free to help if you know of a good configuration or reference available! Ideally, the goal is to keep the assembly simple, without components that are too specific, expensive or complicated to procure. I put this simple and incorrect configuration so that people can simply test without investing too much.
 
+
+![alt text](https://github.com/holysnippet/pico_eth/blob/main/images/eliface.png "Electrical interface")
+
+
+The electrical diagram is simple:
+
+**Common:**
+
+- T1 Provides galvanic isolation between the Pico and the Ethernet bus.
+- C1 is a power supply smoothing capacitor. It should be present if your setup is wire fed or if the power lines have significant resistance. Its value is not critical and can range from 100nF to 10uF.
+
+**Transmitter:**
+
+- R2 & R3 limit the output impedance of the transmitter to about 100 ohms. You can use resistors from 47 to 68 ohms.
+- R1 limits the amplitude of any returned reflections from the line. You can use resistors from 500 to 1k ohms.
+
+**Receiver:**
+
+- R4 sets the impedance at the output of the transformer in order to present a correct impedance to the line (and limit reflections if possible). 82 to 120 ohms will be perfect.
+
+- R12, a potentiometer preferably linear, together with C2 provide a variable voltage reference. It should be adjusted to a value close to half the supply voltage (but not necessarily exactly). A fixed resistor network could work but I have not tested or determined values. (See the section on adjusting this potentiometer later).
+
+- R7 limits the current flowing to the Pico input. The Ethernet signal is a high frequency signal. It can therefore cause a significant current to flow (in the worst case) through the small capacitance (a few pF) of the Pico's input port.
+
+*R12, R7 & C2 have been determined empirically. I wanted to keep the receiver simple so that this project would be accessible to as many people as possible. I think there are better solutions. Mine consumes little current and takes advantage of the differential nature of the signal. The downside is that we expose the Pico to the Ethernet voltages and rely on its internal protections. Nevertheless I don't think that the Pico is in immediate danger. The value of R7 is important and the voltages presented by the Ethernet bus are low.*
+
+**Any better solutions or improvements are welcome!**
+
 ### lwIP stack tuning
 The choices I have made may not be appropriate for your application (max number of connections vs good throughput). I can't go into details here. lwIP configuration options are located in the provided file lwipopts.h. With only a few kilobytes of memory, you will have to make some compromises. There are many guides :
 
