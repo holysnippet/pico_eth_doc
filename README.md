@@ -31,7 +31,7 @@ The electrical diagram is simple:
 **Transmitter:**
 
 - R2 & R3 limit the output impedance of the transmitter to about 100 ohms. You can use resistors from 47 to 68 ohms.
-- R1 limits the amplitude of any returned reflections from the line. You can use resistors from 500 to 1k ohms.
+- R1 limits the amplitude of returned reflections from the line. You can use resistors from 500 to 1k ohms.
 
 **Receiver:**
 
