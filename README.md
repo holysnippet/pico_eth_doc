@@ -35,9 +35,9 @@ The electrical diagram is simple:
 
 **Receiver:**
 
-- R4 sets the impedance at the output of the transformer in order to present a correct impedance to the line (and limit reflections if possible). 82 to 120 ohms will be perfect.
+- R4 sets the impedance at the output of the transformer in order to present a correct impedance to the line. 82 to 120 ohms should be suitable.
 
-- R12, a potentiometer preferably linear, together with C2 provide a variable voltage reference. It should be adjusted to a value close to half the supply voltage (but not necessarily exactly). A fixed resistor network could work but I have not tested or determined values. (See the section on adjusting this potentiometer later).
+- R12, a potentiometer **preferably linear**, together with C2 provide a variable voltage reference. It should be adjusted to a value close to half the supply voltage *(but not necessarily exactly)*. A fixed resistor network could work but I have not tested or determined values. (See the section on adjusting this potentiometer later).
 
 - R7 limits the current flowing to the Pico input. The Ethernet signal is a high frequency signal. It can therefore cause a significant current to flow (in the worst case) through the small capacitance (a few pF) of the Pico's input port.
 
