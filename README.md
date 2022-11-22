@@ -39,7 +39,7 @@ The electrical diagram is simple:
 
 - **R6**, a 10k ohms potentiometer **preferably linear**, together with **C2** provide a variable voltage reference. It should be adjusted to a value close to half the supply voltage *(but not necessarily exactly)*. A fixed resistor network could work but I have not tested or determined values. **I managed to get less than one Ethernet frame wrong in a thousand (1/1000) with a potentiometer set in less than a minute!** (See the section on adjusting this potentiometer later). I have not tested other values for **R6** feel free to send me your test results.
 
-- For **C12** you can try a value from 100pF to 1nF. Small values seem preferable.
+- For **C2** you can try a value from 100pF to 1nF. Small values seem preferable.
 
 - **R5** limits the current flowing to the Pico input. The Ethernet signal is a high frequency signal. It can therefore cause a significant current to flow (in the worst case) through the small capacitance (a few pF) of the Pico's input port. A slightly lower value of **R5** (and possibly a slightly different setting of potentiometer **R6**) would distort the signal a little less and allow a lower error rate.
 
