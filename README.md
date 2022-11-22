@@ -37,7 +37,7 @@ The electrical diagram is simple:
 
 - **R4** sets the impedance at the output of the transformer in order to present a correct impedance to the line. 82 to 120 ohms should be suitable.
 
-- **R12**, a potentiometer **preferably linear**, together with **C2** provide a variable voltage reference. It should be adjusted to a value close to half the supply voltage *(but not necessarily exactly)*. A fixed resistor network could work but I have not tested or determined values. **I managed to get less than one Ethernet frame wrong in a thousand (1/1000) with a potentiometer set in less than a minute!** (See the section on adjusting this potentiometer later). I have not tested other values for **R12** feel free to send me your test results.
+- **R12**, a 10k ohms potentiometer **preferably linear**, together with **C2** provide a variable voltage reference. It should be adjusted to a value close to half the supply voltage *(but not necessarily exactly)*. A fixed resistor network could work but I have not tested or determined values. **I managed to get less than one Ethernet frame wrong in a thousand (1/1000) with a potentiometer set in less than a minute!** (See the section on adjusting this potentiometer later). I have not tested other values for **R12** feel free to send me your test results.
 
 - For **C12** you can try a value from 100pF to 1nF. Small values seem preferable.
 
