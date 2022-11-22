@@ -25,7 +25,7 @@ The electrical diagram is simple:
 
 **Common:**
 
-- **T1** Provides galvanic isolation between the Pico and the Ethernet bus.
+- **T1** Is a standard 10/100 Ethernet transformer, it provides galvanic isolation between the Pico and the Ethernet bus.
 - **C1** is a power supply smoothing capacitor. It should be present if your setup is wire fed or if the power lines have significant resistance. Its value is not critical and can range from 100nF to 10uF.
 
 **Transmitter:**
