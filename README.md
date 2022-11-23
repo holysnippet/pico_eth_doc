@@ -36,12 +36,9 @@ The electrical diagram is simple:
 **Receiver:**
 
 - **R4** sets the impedance at the output of the transformer in order to present a correct impedance to the line. 82 to 120 ohms should be suitable.
-
-- **R6**, a 10k ohms potentiometer **preferably linear**, together with **C2** provide a variable voltage reference. It should be adjusted to a value close to half the supply voltage *(but not necessarily exactly)*. A fixed resistor network could work but I have not tested or determined values. **I managed to get less than one Ethernet frame wrong in a thousand (1/1000) with a potentiometer set in less than a minute!** (See the section on adjusting this potentiometer later). I have not tested other values for **R6** feel free to send me your test results.
-
-- For **C2** you can try a value from 100pF to 1nF. Small values seem preferable.
-
-- **R5** limits the current flowing to the Pico input. The Ethernet signal is a high frequency signal. It can therefore cause a significant current to flow (in the worst case) through the small capacitance (a few pF) of the Pico's input port. A slightly lower value of **R5** (and possibly a slightly different setting of potentiometer **R6**) would distort the signal a little less and allow a lower error rate.
+- **R1 & R2** form a voltage divider bridge. Its division factor is 0.45 = R2 / (R2 + R1) = 2700 / (2700 + 3300).
+- **C2** buffers the voltage delivered by the divider bridge R1 & R2. 100pF to 1nF should work but more investigation could be beneficial.
+- **R5** limits the current flowing to the Pico input. The Ethernet signal is a high frequency signal. It can therefore cause a significant current to flow (in the worst case) through the small capacitance (a few pF) of the Pico's input port. A slightly lower value of **R5** (and possibly a slightly different setting of potentiometer **R6**) would distort the signal a little less and allow a lower error rate. 800 ohms to 1.6k ohms seem to work. Prefer the value in the diagram (1k). More research could also be beneficial here.
 
 ***R6**, **R5** & **C2** have been determined empirically. I wanted to keep the receiver simple so that this project would be accessible to as many people as possible. I think there are better solutions. Mine consumes little current and takes advantage of the differential nature of the signal. The downside is that we expose the Pico to the Ethernet voltages and rely on its internal protections. The value of **R5** is consequent and the voltages presented by the Ethernet bus are low. It is more than unlikely that the Pico will suffer any latch-up event at these levels. It would be even more unlikely to damage it.*
 
