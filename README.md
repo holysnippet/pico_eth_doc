@@ -12,10 +12,9 @@ This library allows you to add Ethernet 10Base-T compatible connectivity to your
 The Pico is connected to the Ethernet bus via a standard isolation transformer. You can get them from Ethernet devices (motherboards, network cards, hubs & switches ...) that are going to the trash. Don't forget to get the hardware MAC address. It's free and will be useful soon.
 The positive side of the receiving pair is connected to the Pico by a limiting resistor. The negative side of the receiving pair is shifted by a resistor network in order to take advantage of the differential nature of the signal.
 
-I have tested many differential receivers (DIY, with standard 2N2222 or 2N3904 transistors) but the result is not good because they don't work very well in 3.3V and they are a bit slow: they distort the signal more than a direct reception. 10Base-T Ethernet is wider than 20MHz!
+I have tested many differential receivers (DIY, with standard 2N2222 or 2N3904 transistors) but the result is not good because they don't work very well in 3.3V; they are a bit slow: they distort the signal more than a direct reception. 10Base-T Ethernet is wider than 20MHz!
 
-With the right transistors or differential receiver chip, one could make a very clean setup! Feel free to help if you know of a good configuration or reference available! Ideally, the goal is to keep the assembly simple, without components that are too specific, expensive or complicated to procure. I put this simple and incorrect configuration so that people can simply test without investing too much.
-
+With the right transistors or differential receiver chip, one could make a very clean setup! Feel free to help if you know of a good configuration or reference available! Ideally, the goal is to keep the assembly simple, without components that are too specific, expensive or complicated to procure. I put this simple and incorrect configuration so that people can simply test without investing too much. I've left some tracks further down (Physical interface possible improvements) if you want to dig deeper.
 
 ![alt text](https://github.com/holysnippet/pico_eth/blob/main/images/eliface.png "Electrical interface")
 
@@ -52,6 +51,30 @@ The electrical diagram is simple:
 - Evaluate the reception quality by coupling the signal differently (capacitively) in conjunction with one (or both) of the two options above.
 - An active differential transceiver (ISL3177) would provide an extremely low error rate with no potentiometer to adjust.
 - Someone talented could probably arrange a pair of 2N3904s into a cheap and fast 3.3V differential receiver.
+
+### Assembly guidelines
+
+The use of a rapid prototyping board called "Breadboard" can eventually work but will give poor results (you will definitely have frame drops). This is due to the fact that Ethernet is a fast signal (its spectrum is at least 20MHz wide) which means that the parasitic capacities presented by a Breadboard will significantly tend to "smooth" this fast signal. Without mentioning possible crosstalk effects due to the construction of the Breadboard.
+
+The use of a "Perfboard" rapid soldering circuit gives satisfactory results if the realization is careful (the legs of the components must be cut and the Ethernet wires (if there are any) must remain as short as possible.
+
+To make a quick first try you should try to recover the transformer of a used Ethernet device. It should be a 10/100 Base-T transformer. They are abundant. Also think (if you can) about getting the MAC address of the donor device: you will be able to assign it to your Pico.
+
+There is also another option, the "MagJack Ethernet" type plugs (this is a registered trademark). These are shielded Ethernet sockets that contain the transformer. This is a more expensive option but has the advantage of integrating the connector, the transformer, LEDs, HV capacitors and a metallic shield.
+
+The other components are standard passive. You can buy them or desolder them if you have access to "electronic waste". The potentiometer should ideally be linear, a logarithmic one will also work but will be less obvious to set. Prefer a potentiometer that is easy to adjust, if you can get a small multi-turn it is even better but not mandatory. The setting of the potentiometer is not so critical; but when it is very well set there are no or very few reception errors.
+
+### Setting the biasing potentiometer
+
+The purpose of the potentiometer setting is to adjust the voltage applied to the negative side of the Ethernet transformer. It is important to set this voltage at the right threshold in order to preserve the symmetry and temporal properties of the Ethernet signal. This is important to keep the signal synchronized and to remain synchronized throughout the duration of an Ethernet frame.
+
+The positive side will thus be continuously shifted by about half the supply voltage (but not necessarily exactly). Therefore, when a negative pulse occurs at the input of the transformer, it will drop a little below zero at its output on the positive side of the pair. Conversely, it is just as simple, when a positive pulse occurs at the input, it will slightly exceed the supply voltage at the output. So we take advantage of the differential nature of the Ethernet signal!
+
+The adjustment consists of several steps (which will be detailed). It's not hard but it's an important setting (if you want to keep a low frame dropping rate). You may have to be patient to tweak your setting the first few times.
+
+**Always try to keep the potentiometer close to half, avoid going below 1/4 and above 3/4. It won't work and it exposes the Pico to slightly high (transient) levels.**
+
+
 
 ### lwIP stack tuning
 The choices I have made may not be appropriate for your application (max number of connections vs good throughput). **I can't go into details here.** lwIP configuration options are located in the provided file lwipopts.h. With only a few kilobytes of memory, you will have to make some compromises. There are many guides :
