@@ -29,8 +29,9 @@ The electrical diagram is simple:
 
 **Transmitter:**
 
-- **R2 & R3** limit the output impedance of the transmitter to about 100 ohms. You can use resistors from 47 to 68 ohms.
-- **R1** limits the amplitude of returned reflections from the line. You can use resistors from 500 to 1k ohms.
+- **R5 & R6** limit the output impedance of the transmitter to about 100 ohms. You can use resistors from 47 to 68 ohms.
+- **R7** limits the amplitude of returned reflections from the line. You can use resistors from 500 to 1k ohms.
+- **C3 & C4** They block the DC component of the signal at the output of the Pico. They are mandatory for Ethernet transformers with common winding center taps (RX & TX Pico side center taps connected together). It is better to put them on if you are not sure of the type of your transformer. Omit them at your own risk, you won't damage your Pico but it won't work! If you populate them even though there is no need for them, it won't make any difference. You can try from 6.8nF to 68nF.
 
 **Receiver:**
 
