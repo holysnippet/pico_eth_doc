@@ -59,7 +59,7 @@ To make a quick first try you should try to recover the transformer of a used Et
 
 There is also another option, the "MagJack Ethernet" type plugs (this is a registered trademark). These are shielded Ethernet sockets that contain the transformer. This is a more expensive option but has the advantage of integrating the connector, the transformer, LEDs, HV capacitors and a metallic shield.
 
-The other components are standard passive. You can buy them or desolder them if you have access to "electronic waste". The potentiometer should ideally be linear, a logarithmic one will also work but will be less obvious to set. Prefer a potentiometer that is easy to adjust, if you can get a small multi-turn it is even better but not mandatory. The setting of the potentiometer is not so critical; but when it is very well set there are no or very few reception errors.
+The other components are standard passive. You can buy them or desolder them if you have access to "electronic waste".
 
 ### Setting the biasing potentiometer
 
