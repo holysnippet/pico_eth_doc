@@ -49,6 +49,12 @@ The electrical diagram is simple:
 - An active differential transceiver (ISL3177) would provide an extremely low error rate, out of the box.
 - Someone talented could probably arrange a pair of 2N3904s into a cheap and fast 3.3V differential receiver.
 
+### Principle of passive reception
+
+The purpose of this setup is to shift the voltage applied to the negative side of the Ethernet transformer (RD-). It is important to set this voltage at the right threshold so that the Pico input gate switches at the right level, i.e. preserving the symmetry and temporal properties of the Ethernet signal.
+
+The positive side (RD+) will thus be continuously shifted by about half the supply voltage (but not necessarily exactly). Therefore, when a negative pulse occurs at the input of the transformer, it will drop a little below zero at its output on the positive side of the transformer. Conversely, it is just as simple, when a positive pulse occurs at the input, it will slightly exceed the supply voltage at the output. So we take advantage of the differential nature of the Ethernet signal!
+
 ### Assembly guidelines
 
 The use of a rapid prototyping board called "Breadboard" can eventually work but will give poor results (you will definitely have frame drops). This is due to the fact that Ethernet is a fast signal (its spectrum is at least 20MHz wide) which means that the parasitic capacities presented by a Breadboard will significantly tend to "smooth" this fast signal. Without mentioning possible crosstalk effects due to the construction of the Breadboard.
@@ -60,16 +66,6 @@ To make a quick first try you should try to recover the transformer of a used Et
 There is also another option, the "MagJack Ethernet" type plugs (this is a registered trademark). These are shielded Ethernet sockets that contain the transformer. This is a more expensive option but has the advantage of integrating the connector, the transformer, LEDs, HV capacitors and a metallic shield.
 
 The other components are standard passive. You can buy them or desolder them if you have access to "electronic waste".
-
-### Principle of passive reception
-
-The purpose of this setup is to shift the voltage applied to the negative side of the Ethernet transformer (RD-). It is important to set this voltage at the right threshold so that the Pico input gate switches at the right level, i.e. preserving the symmetry and temporal properties of the Ethernet signal. This is important so that the signal is synchronized and remains synchronized throughout the duration of an Ethernet frame.
-
-The positive side (RD+) will thus be continuously shifted by about half the supply voltage (but not necessarily exactly). Therefore, when a negative pulse occurs at the input of the transformer, it will drop a little below zero at its output on the positive side of the transformer. Conversely, it is just as simple, when a positive pulse occurs at the input, it will slightly exceed the supply voltage at the output. So we take advantage of the differential nature of the Ethernet signal!
-
-
-
-
 
 ### lwIP stack tuning
 The choices I have made may not be appropriate for your application (max number of connections vs good throughput). **I can't go into details here.** lwIP configuration options are located in the provided file lwipopts.h. With only a few kilobytes of memory, you will have to make some compromises. There are many guides :
