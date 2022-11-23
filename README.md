@@ -61,15 +61,13 @@ There is also another option, the "MagJack Ethernet" type plugs (this is a regis
 
 The other components are standard passive. You can buy them or desolder them if you have access to "electronic waste".
 
-### Setting the biasing potentiometer
+### Principle of passive reception
 
-The purpose of the potentiometer setting is to adjust the voltage applied to the negative side of the Ethernet transformer. It is important to set this voltage at the right threshold in order to preserve the symmetry and temporal properties of the Ethernet signal. This is important to keep the signal synchronized and to remain synchronized throughout the duration of an Ethernet frame.
+The purpose of this setup is to shift the voltage applied to the negative side of the Ethernet transformer (RD-). It is important to set this voltage at the right threshold so that the Pico input gate switches at the right level, i.e. preserving the symmetry and temporal properties of the Ethernet signal. This is important so that the signal is synchronized and remains synchronized throughout the duration of an Ethernet frame.
 
-The positive side will thus be continuously shifted by about half the supply voltage (but not necessarily exactly). Therefore, when a negative pulse occurs at the input of the transformer, it will drop a little below zero at its output on the positive side of the pair. Conversely, it is just as simple, when a positive pulse occurs at the input, it will slightly exceed the supply voltage at the output. So we take advantage of the differential nature of the Ethernet signal!
+The positive side (RD+) will thus be continuously shifted by about half the supply voltage (but not necessarily exactly). Therefore, when a negative pulse occurs at the input of the transformer, it will drop a little below zero at its output on the positive side of the transformer. Conversely, it is just as simple, when a positive pulse occurs at the input, it will slightly exceed the supply voltage at the output. So we take advantage of the differential nature of the Ethernet signal!
 
-The adjustment consists of several steps (which will be detailed). It's not hard but it's an important setting (if you want to keep a low frame dropping rate). You may have to be patient to tweak your setting the first few times.
 
-**Always try to keep the potentiometer close to half, avoid going below 1/4 and above 3/4. It won't work and it exposes the Pico to slightly high (transient) levels.**
 
 
 
