@@ -61,7 +61,7 @@ The use of a rapid prototyping board called "Breadboard" can eventually work but
 
 The use of a "Perfboard" rapid soldering circuit gives satisfactory results if the realization is careful (the legs of the components must be cut and the Ethernet wires (if there are any) must remain as short as possible.
 
-To make a quick first try you should try to recover the transformer of a used Ethernet device. It should be a 10/100 Base-T transformer. They are abundant. Also think (if you can) about getting the MAC address of the donor device: you will be able to assign it to your Pico.
+To make a quick first try you should try to recover the transformer of a used Ethernet device. It should be a 10/100 Base-T transformer. They are abundant. Also think (if you can) about getting the MAC address of the donor device: you will be able to assign it to your shiny new Pico-E !
 
 There is also another option, the "MagJack Ethernet" type plugs (this is a registered trademark). These are shielded Ethernet sockets that contain the transformer. This is a more expensive option but has the advantage of integrating the connector, the transformer, LEDs, HV capacitors and a metallic shield.
 
