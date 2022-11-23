@@ -40,14 +40,13 @@ The electrical diagram is simple:
 - **C2** buffers the voltage delivered by the divider bridge R1 & R2. 100pF to 1nF should work but more investigation could be beneficial.
 - **R5** limits the current flowing to the Pico input. The Ethernet signal is a high frequency signal. It can therefore cause a significant current to flow (in the worst case) through the small capacitance (a few pF) of the Pico's input port. A slightly lower value of **R5** (and possibly a slightly different setting of potentiometer **R6**) would distort the signal a little less and allow a lower error rate. 800 ohms to 1.6k ohms seem to work. Prefer the value in the diagram (1k). More research could also be beneficial here.
 
-***R6**, **R5** & **C2** have been determined empirically. I wanted to keep the receiver simple so that this project would be accessible to as many people as possible. I think there are better solutions. Mine consumes little current and takes advantage of the differential nature of the signal. The downside is that we expose the Pico to the Ethernet voltages and rely on its internal protections. The value of **R5** is consequent and the voltages presented by the Ethernet bus are low. It is more than unlikely that the Pico will suffer any latch-up event at these levels. It would be even more unlikely to damage it.*
+***R6, R5 and C2** were determined empirically. I wanted to keep the receiver simple so that this project would be accessible to as many people as possible. I think there are better solutions. Mine consumes little current and takes advantage of the differential nature of the signal. The disadvantage is that we expose the Pico to the Ethernet voltages and depend on its internal protections. (And we also accept to potentially lose some frames compared to an active differential receiver). But the voltages presented by Ethernet are low, if we keep a sufficient value for R5 (but not too high either) it is unlikely that the Pico will suffer from latch up events and even more unlikely that it will be damaged.*
 
 **Physical interface possible improvements:**
 
 - Evaluate the reception quality by disabling the Schmitt trigger on the GPIO input.
-- Evaluate the reception quality by deactivating the pulldown resistor on the GPIO input.
-- Evaluate the reception quality by coupling the signal differently (capacitively) in conjunction with one (or both) of the two options above.
-- An active differential transceiver (ISL3177) would provide an extremely low error rate with no potentiometer to adjust.
+- Evaluate the reception quality by coupling the signal differently or with a different biasing method.
+- An active differential transceiver (ISL3177) would provide an extremely low error rate, out of the box.
 - Someone talented could probably arrange a pair of 2N3904s into a cheap and fast 3.3V differential receiver.
 
 ### Assembly guidelines
