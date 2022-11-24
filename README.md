@@ -12,7 +12,7 @@ This library allows you to add Ethernet 10Base-T compatible connectivity to your
 
 The software and hardware interfaces provided on this page are at an advanced stage of development but are not finished. They are provided free of charge and the author cannot be held responsible for their use.
 
-Please consider a donation if you find my work useful, if you like it and if you wish to encourage its completion and maintenance.
+Please consider a Github ⭐ or a donation if you find my work useful, if you like it and if you wish to encourage its completion and maintenance.
 
 ![alt text](https://github.com/holysnippet/pico_eth_doc/blob/main/images/both.png "Two Pico E")
 
