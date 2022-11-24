@@ -6,7 +6,7 @@ This library allows you to add Ethernet 10Base-T compatible connectivity to your
 - It is not advisable to connect the electronic assemblies described on this page to equipment that uses or provides **Power over Ethernet (PoE).**
 - It is not advisable to connect to Ethernet without an isolation transformer, it's electrically insecure and will result in more lost frames!
 
-**Sample project and code is in this repository : https://github.com/holysnippet/pico_eth**
+**Sample project and code is in this repository: https://github.com/holysnippet/pico_eth**
 
 - [What to expect from such a set-up?](#wte)
 
@@ -19,6 +19,8 @@ This library allows you to add Ethernet 10Base-T compatible connectivity to your
 - [Hardware troubleshooting guide](#tro)
 
 - [Using the UF2 test image](#usi)
+
+- [Create your own Pico E project](#cre)
 
 - [lwIP stack tuning](#lwi)
 
@@ -131,7 +133,7 @@ If you find a value close to zero volts then you have (as I had) a transformer w
 <a name="usi"></a>
 ## Using the UF2 test image
 
-This image is provided to allow you to quickly test your interface without having to compile the source code. It embeds a TCP iperf server version 2 only (**version 3 does not seem to be supported**). There is also a HTTP test server. An NTP demo client runs permanently on the board. It queries an NTP server every 30 seconds and displays the result on the USB serial port.
+This image is provided to allow you to quickly test your interface without having to compile the source code. It embeds a TCP iperf server version 2 only **(version 3 does not seem to be supported)**. There is also a HTTP test server. An NTP demo client runs permanently on the board. It queries an NTP server every 30 seconds and displays the result on the USB serial port.
 
 #### Program pins: (See electrical diagram)
 
@@ -143,7 +145,7 @@ This image is provided to allow you to quickly test your interface without havin
 
 The MAC address is as follows (**remember to change it** in your images, **if you use two Picos with the same MAC on the same network you will have trouble!**)
 
->MAC : 00:01:02:03:04:05
+>MAC: 00:01:02:03:04:05
 
 If you do not have a DHCP server, the default settings are as follows:
 
@@ -157,9 +159,36 @@ The hostname of the card (which you can use if your network infrastructure allow
 
 >lwIP_Pico
 
+<a name="cre"></a>
+## Source code compilation
+
+The source code is not finished. This version is stable and can be used in your own projects. Some things are missing and some things can be improved, but the calls to initialize Ethernet will (in all likelihood) remain the same. Everything else (development and deployment of your application) depends on the lwIP library and its documentation. This is the same IP stack as the one used by the Pico W.
+
+### Software requirements:
+
+- The latest version of pico-sdk for RP2040 which is **1.4.0 is mandatory**.
+- Currently compiles with GCC 10.3.1 but compiles with earlier versions (at your own risk).
+- Visual Studio Code is used as IDE, the project folder is a VS Code workspace (some settings i.e. debug probe may be wrong !). But it is still possible to compile it in a classical way on the command line using cmake & make. 
+
+### Steps:
+
+- Get the code, you can make a clone of the GitHub repository of the source code:
+
+Navigate to your development folder, then:
+```bash
+git clone https://github.com/holysnippet/pico_eth.git
+```
+Or download the zip archive directly from GitHub (Green button, download ZIP):
+
+https://github.com/holysnippet/pico_eth
+
+- Using the method of your choice (VS Code or other) make sure that the **PICO_SDK_PATH** environment variable is correctly set.
+
+- The project should compile.
+
 <a name="lwi"></a>
 ## lwIP stack tuning
-The choices I made may not be suitable for your application as I torture test the stack to see how it works with the interface. **I can't go into details here.** lwIP configuration options are located in the provided file lwipopts.h. With only a few kilobytes of memory, you will have to make some compromises (i.e. max number of connections vs good throughput). There are many guides :
+The choices I made may not be suitable for your application as I torture test the stack to see how it works with the interface. **I can't go into details here.** lwIP configuration options are located in the provided file lwipopts.h. With only a few kilobytes of memory, you will have to make some compromises (i.e. max number of connections vs good throughput). There are many guides:
 
 https://lwip.fandom.com/wiki/Tuning_TCP
 
