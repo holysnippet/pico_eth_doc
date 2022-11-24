@@ -6,8 +6,29 @@ This library allows you to add Ethernet 10Base-T compatible connectivity to your
 - It is not advisable to connect the electronic assemblies described on this page to equipment that uses or provides **Power over Ethernet (PoE).**
 - It is not advisable to connect to Ethernet without an isolation transformer, it's electrically insecure and will result in more lost frames!
 
+### Caution, early release
+
+The software and hardware interfaces provided on this page are at an advanced stage of development but are not finished. They are provided free of charge and the author cannot be held responsible for their use.
+
+Please consider a donation if you find my work useful, if you like it and if you wish to encourage its completion and maintenance.
+
+![alt text](https://github.com/holysnippet/pico_eth_doc/blob/main/images/both.png "Two Pico E")
+
+### What to expect from such a set-up?
+
+As mentioned above, this software is under development. The code published in the main branch is stable. The implementation of the lwIP stack is correctly done. The dialog has been checked with Wireshark, there is little or no TCP retransmission, the examination of the lwIP logs suggests a healthy behavior of the IP stack.
+
+The UF2 test image and the test program provided with the source code embeds an iperf **version 2** server that supports TCP. **Beware, iperf version 3 clients are not supported!**
+
+![alt text](https://github.com/holysnippet/pico_eth_doc/blob/main/images/speeiperf.png "iperf 2 TCP test")
+
+
+We can measure throughputs ranging from more than **5Mbit/s** to more than **7Mbit/s!** This is a respectable performance, it's an early software, it runs on a single core (including lwIP) the electrical interface doesn't cost much and we have to remember that it's TCP: the flow control costs bandwidth. The UDP throughput should be close to the theoretical maximum throughput of the interface, i.e. not far from 10Mbit/s.
+
 ### Physical interface, cheap DIY version
 **This "Ethernet to 3.3V" interface is electrically incorrect. We shamefully rely on the Pico's input protection devices.** However, in practice; the limiting resistor prevents the current from reaching significant values. Ethernet does not have so high levels (+2.5V to -2.5V).
+
+![alt text](https://github.com/holysnippet/pico_eth_doc/blob/main/images/boardclassic.png "Early interface version")
 
 The Pico is connected to the Ethernet bus via a standard isolation transformer. You can get them from Ethernet devices (motherboards, network cards, hubs & switches ...) that are going to the trash. Don't forget to get the hardware MAC address. It's free and will be useful soon.
 The positive side of the receiving pair is connected to the Pico by a limiting resistor. The negative side of the receiving pair is shifted by a resistor network in order to take advantage of the differential nature of the signal.
@@ -16,7 +37,7 @@ I have tested many differential receivers (DIY, with standard 2N2222 or 2N3904 t
 
 With the right transistors or differential receiver chip, one could make a very clean setup! Feel free to help if you know of a good configuration or reference available! Ideally, the goal is to keep the assembly simple, without components that are too specific, expensive or complicated to procure. I put this simple and incorrect configuration so that people can simply test without investing too much. I've left some tracks further down (Physical interface possible improvements) if you want to dig deeper.
 
-![alt text](https://github.com/holysnippet/pico_eth/blob/main/images/eliface.png "Electrical interface")
+![alt text](https://github.com/holysnippet/pico_eth_doc/blob/main/images/eliface.png "Electrical interface")
 
 (The values in the diagram are tested, **prefer them**, I advance intervals in the text)
 
@@ -61,11 +82,29 @@ The use of a rapid prototyping board called "Breadboard" can eventually work but
 
 The use of a "Perfboard" rapid soldering circuit gives satisfactory results if the realization is careful (the legs of the components must be cut and the Ethernet wires (if there are any) must remain as short as possible.
 
+![alt text](https://github.com/holysnippet/pico_eth_doc/blob/main/images/boardmagjack.png "DIY Pico E")
+
 To make a quick first try you should try to recover the transformer of a used Ethernet device. It should be a 10/100 Base-T transformer. They are abundant. Also think (if you can) about getting the MAC address of the donor device: you will be able to assign it to your shiny new Pico-E !
+
+![alt text](https://github.com/holysnippet/pico_eth_doc/blob/main/images/mbtra.png "Ethernet transformer")
+
+![alt text](https://github.com/holysnippet/pico_eth_doc/blob/main/images/mb-transformer-ds.png "Ethernet transformer datasheet")
 
 There is also another option, the "MagJack Ethernet" type plugs (this is a registered trademark). These are shielded Ethernet sockets that contain the transformer. This is a more expensive option but has the advantage of integrating the connector, the transformer, LEDs, HV capacitors and a metallic shield.
 
+![alt text](https://github.com/holysnippet/pico_eth_doc/blob/main/images/magjack.png "Magjack integrated Ethernet transformer")
+
 The other components are standard passive. You can buy them or desolder them if you have access to "electronic waste".
+
+### Troubleshooting Guide
+
+This section has not yet been written. You can open a GitHub issue but don't expect quick help.
+
+The biasing voltage is the most important parameter and is the only thing you can check in case of a problem. It should be 0.45 times the supply voltage of the Pico.
+
+As an indication, a measurement on one of my interface gives 1.45V (for a supply voltage of 3.25V).
+
+If you find a value close to zero volts then you have (as I had) a transformer with the center point of the windings (RX & TX) connected together. You must populate **C3 & C4**.
 
 ### lwIP stack tuning
 The choices I have made may not be appropriate for your application (max number of connections vs good throughput). **I can't go into details here.** lwIP configuration options are located in the provided file lwipopts.h. With only a few kilobytes of memory, you will have to make some compromises. There are many guides :
