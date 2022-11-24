@@ -80,7 +80,7 @@ The positive side (RD+) will thus be continuously shifted by about half the supp
 
 The use of a rapid prototyping board called "Breadboard" can eventually work but will give poor results (you will definitely have frame drops). This is due to the fact that Ethernet is a fast signal (its spectrum is at least 20MHz wide) which means that the parasitic capacities presented by a Breadboard will significantly tend to "smooth" this fast signal. Without mentioning possible crosstalk effects due to the construction of the Breadboard.
 
-The use of a "Perfboard" rapid soldering circuit gives satisfactory results if the realization is careful (the legs of the components must be cut and the Ethernet wires (if there are any) must remain as short as possible.
+The use of a "Perfboard" rapid soldering circuit gives satisfactory results if the realization is careful; the legs of the components must be cut and the Ethernet wires (if there are any) must remain short.
 
 ![alt text](https://github.com/holysnippet/pico_eth_doc/blob/main/images/boardmagjack.png "DIY Pico E")
 
