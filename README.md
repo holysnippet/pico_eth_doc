@@ -6,6 +6,8 @@ This library allows you to add Ethernet 10Base-T compatible connectivity to your
 - It is not advisable to connect the electronic assemblies described on this page to equipment that uses or provides **Power over Ethernet (PoE).**
 - It is not advisable to connect to Ethernet without an isolation transformer, it's electrically insecure and will result in more lost frames!
 
+**Sample project and code is in this repository : https://github.com/holysnippet/pico_eth**
+
 ### Caution, early release
 
 The software and hardware interfaces provided on this page are at an advanced stage of development but are not finished. They are provided free of charge and the author cannot be held responsible for their use.
