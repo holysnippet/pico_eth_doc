@@ -8,7 +8,22 @@ This library allows you to add Ethernet 10Base-T compatible connectivity to your
 
 **Sample project and code is in this repository : https://github.com/holysnippet/pico_eth**
 
-### Caution, early release
+- [What to expect from such a set-up?](#wte)
+
+- [Physical interface, cheap DIY version](#phy)
+
+- [Principle of passive reception](#pri)
+
+- [Assembly guidelines](#ass)
+
+- [Troubleshooting Guide](#tro)
+
+- [lwIP stack tuning](#lwi)
+
+- [What to expect from such a set-up?](#wha)
+
+
+## Caution, early release
 
 The software and hardware interfaces provided on this page are at an advanced stage of development but are not finished. They are provided free of charge and the author cannot be held responsible for their use.
 
@@ -16,7 +31,8 @@ Please consider a Github ⭐ or a donation if you find my work useful, if you li
 
 ![alt text](https://github.com/holysnippet/pico_eth_doc/blob/main/images/both.png "Two Pico E")
 
-### What to expect from such a set-up?
+<a name="wte"></a>
+## What to expect from such a set-up?
 
 As mentioned above, this software is under development. The code published in the main branch is stable. The implementation of the lwIP stack is correctly done. The dialog has been checked with Wireshark, there is little or no TCP retransmission, the examination of the lwIP logs suggests a healthy behavior of the IP stack.
 
@@ -27,7 +43,8 @@ The UF2 test image and the test program provided with the source code embeds an 
 
 We can measure throughputs ranging from more than **5Mbit/s** to more than **7Mbit/s!** This is a respectable performance, it's an early software, it runs on a single core (including lwIP) the electrical interface doesn't cost much and we have to remember that it's TCP: the flow control costs bandwidth. The UDP throughput should be close to the theoretical maximum throughput of the interface, i.e. not far from 10Mbit/s.
 
-### Physical interface, cheap DIY version
+<a name="phy"></a>
+## Physical interface, cheap DIY version
 **This "Ethernet to 3.3V" interface is electrically incorrect. We shamefully rely on the Pico's input protection devices.** However, in practice; the limiting resistor prevents the current from reaching significant values. Ethernet does not have so high levels (+2.5V to -2.5V).
 
 ![alt text](https://github.com/holysnippet/pico_eth_doc/blob/main/images/boardclassic.png "Early interface version")
@@ -72,13 +89,15 @@ The electrical diagram is simple:
 - An active differential transceiver (ISL3177) would provide an extremely low error rate, out of the box.
 - Someone talented could probably arrange a pair of 2N3904s into a cheap and fast 3.3V differential receiver.
 
-### Principle of passive reception
+<a name="pri"></a>
+## Principle of passive reception
 
 The purpose of this setup is to shift the voltage applied to the negative side of the Ethernet transformer (RD-). It is important to set this voltage at the right threshold so that the Pico input gate switches at the right level, i.e. preserving the symmetry and temporal properties of the Ethernet signal.
 
 The positive side (RD+) will thus be continuously shifted by about half the supply voltage (but not necessarily exactly). Therefore, when a negative pulse occurs at the input of the transformer, it will drop a little below zero at its output on the positive side of the transformer. Conversely, it is just as simple, when a positive pulse occurs at the input, it will slightly exceed the supply voltage at the output. So we take advantage of the differential nature of the Ethernet signal!
 
-### Assembly guidelines
+<a name="ass"></a>
+## Assembly guidelines
 
 The use of a rapid prototyping board called "Breadboard" can eventually work but will give poor results (you will definitely have frame drops). This is due to the fact that Ethernet is a fast signal (its spectrum is at least 20MHz wide) which means that the parasitic capacities presented by a Breadboard will significantly tend to "smooth" this fast signal. Without mentioning possible crosstalk effects due to the construction of the Breadboard.
 
@@ -98,7 +117,8 @@ There is also another option, the "MagJack Ethernet" type plugs (this is a regis
 
 The other components are standard passive. You can buy them or desolder them if you have access to "electronic waste".
 
-### Troubleshooting Guide
+<a name="tro"></a>
+## Troubleshooting Guide
 
 This section has not yet been written. You can open a GitHub issue but don't expect quick help.
 
@@ -108,8 +128,9 @@ As an indication, a measurement on one of my interfaces gives 1.45V (for a suppl
 
 If you find a value close to zero volts then you have (as I had) a transformer with the center point of the windings (RX & TX) connected together. You must populate **C3 & C4**.
 
-### lwIP stack tuning
-The choices I have made may not be appropriate for your application (max number of connections vs good throughput). **I can't go into details here.** lwIP configuration options are located in the provided file lwipopts.h. With only a few kilobytes of memory, you will have to make some compromises. There are many guides :
+<a name="lwi"></a>
+## lwIP stack tuning
+The choices I made may not be suitable for your application as I torture test the stack to see how it works with the interface. **I can't go into details here.** lwIP configuration options are located in the provided file lwipopts.h. With only a few kilobytes of memory, you will have to make some compromises (i.e. max number of connections vs good throughput). There are many guides :
 
 https://lwip.fandom.com/wiki/Tuning_TCP
 
