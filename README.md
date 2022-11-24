@@ -18,9 +18,9 @@ This library allows you to add Ethernet 10Base-T compatible connectivity to your
 
 - [Hardware troubleshooting guide](#tro)
 
-- [lwIP stack tuning](#lwi)
+- [Using the UF2 test image](#usi)
 
-- [What to expect from such a set-up?](#wha)
+- [lwIP stack tuning](#lwi)
 
 
 ## Caution, early release
@@ -127,6 +127,35 @@ The biasing voltage is the most important parameter and is the only thing you ca
 As an indication, a measurement on one of my interfaces gives 1.45V (for a supply voltage of 3.25V).
 
 If you find a value close to zero volts then you have (as I had) a transformer with the center point of the windings (RX & TX) connected together. You must populate **C3 & C4**.
+
+<a name="usi"></a>
+## Using the UF2 test image
+
+This image is provided to allow you to quickly test your interface without having to compile the source code. It embeds a TCP iperf server version 2 only (**version 3 does not seem to be supported**). There is also a HTTP test server. An NTP demo client runs permanently on the board. It queries an NTP server every 30 seconds and displays the result on the USB serial port.
+
+#### Program pins: (See electrical diagram)
+
+>TX_NEG is on Pico GPIO 16
+
+>TX_POS is on Pico GPIO 17
+
+>RX_POS is on Pico GPIO 18
+
+The MAC address is as follows (**remember to change it** in your images, **if you use two Picos with the same MAC on the same network you will have trouble!**)
+
+>MAC : 00:01:02:03:04:05
+
+If you do not have a DHCP server, the default settings are as follows:
+
+>IP: 192.168.1.110
+
+>Netmask: 255.255.255.0
+
+>Gateway: 192.168.1.1
+
+The hostname of the card (which you can use if your network infrastructure allows it) is the following:
+
+>lwIP_Pico
 
 <a name="lwi"></a>
 ## lwIP stack tuning
