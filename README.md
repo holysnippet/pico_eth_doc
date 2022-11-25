@@ -138,6 +138,7 @@ If you find a value close to zero volts then you have (as I had) a transformer w
 
 <a name="usi"></a>
 ## Using the UF2 test image
+It is available at the root of this repository. [Or you can download it by clicking here.](https://github.com/holysnippet/pico_eth_doc/blob/main/Ethernet%20test%20image.uf2)
 
 This image is provided to allow you to quickly test your interface without having to compile the source code. It embeds a TCP iperf server version 2 only **(version 3 does not seem to be supported)**. There is also a HTTP test server. An NTP demo client runs permanently on the board. It queries an NTP server every 30 seconds and displays the result on the USB serial port.
 
