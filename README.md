@@ -20,13 +20,13 @@ This library allows you to add Ethernet 10Base-T compatible connectivity to your
 
 - [Using the UF2 test image](#usi)
 
-- [Create your own Pico E project](#cre)
+- [Source code compilation](#cre)
 
 - [Using the source code](#src)
 
 - [Using the stack](#stk)
 
-- [Known software issues](#kno)
+- [Known issues and limitations of the software - 0.1.0-beta](#kno)
 
 - [lwIP stack tuning](#lwi)
 
@@ -243,7 +243,7 @@ RAM : TBD (Could be reduced)
 FLASH : TBD
 
 <a name="kno"></a>
-## Known software issues
+## Known issues and limitations of the software - 0.1.0-beta
 
 You should only run this code at a system clock of 120MHz or 240MHz (overclock). Without going into details it is because of the fractional divisor of the PIO clock. It is quite possible that it will still work fine at other speeds, but strictly no testing has been done!
 
