@@ -223,6 +223,8 @@ Then the applications are initialized before entering the main loop which starts
 
 You will then have to call eth_pio_arch_poll() periodically between the processing of your application.
 
+If you need the "**netif**" structure to use the lwIP features you just have to include ethpio_arch.h which publishes the instance of this structure.
+
 ### Pico resources used
 1 DMA interrupt
 
