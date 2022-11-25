@@ -3,8 +3,8 @@
 
 This library allows you to add Ethernet 10Base-T compatible connectivity to your Pico at the cost of some passive components. **It uses the proven TCP/IP lwIP stack provided in the latest RP2040 SDK.** It is therefore compatible with programs written **in polling mode** for the Pico W or existing lwIP apps and code.
 
-- It is not advisable to connect the electronic assemblies described on this page to equipment that uses or provides **Power over Ethernet (PoE).**
-- It is not advisable to connect to Ethernet without an isolation transformer, it's electrically insecure and will result in more lost frames!
+- It is not recommended to connect the electronic assemblies described on this page to equipment that uses or provides **Power over Ethernet (PoE).**
+- It is not recommended to connect to Ethernet without an isolation transformer, it's electrically insecure and will result in more lost frames!
 
 **Sample project and code is in this repository: https://github.com/holysnippet/pico_eth**
 
@@ -48,7 +48,7 @@ The UF2 test image and the test program provided with the source code embeds an 
 ![alt text](https://github.com/holysnippet/pico_eth_doc/blob/main/images/speeiperf.png "iperf 2 TCP test")
 
 
-We can measure throughputs ranging from more than **5Mbit/s** to more than **7Mbit/s!** This is a respectable performance, it's an early software, it runs on a single core (including lwIP) the electrical interface doesn't cost much and we have to remember that it's TCP: the flow control costs bandwidth. The UDP throughput should be close to the theoretical maximum throughput of the interface, i.e. not far from 10Mbit/s.
+We can measure throughputs ranging from more than **5Mbit/s** to more than **7Mbit/s!** This is a respectable performance, it's an early software, it runs on a single core (including lwIP) the electrical interface doesn't cost much and we have to remember that it's TCP, the flow control costs bandwidth. The UDP throughput should be close to the theoretical maximum throughput of the interface, i.e. not far from 10Mbit/s.
 
 <a name="phy"></a>
 ## Physical interface, cheap DIY version
@@ -73,7 +73,7 @@ The electrical diagram is simple:
 **Common:**
 
 - **T1** Is a standard 10/100 Ethernet transformer, it provides galvanic isolation between the Pico and the Ethernet bus.
-- **C1** is a power supply smoothing capacitor. It should be present if your setup is wire fed or if the power lines have significant resistance. Its value is not critical and can range from 100nF to 10uF.
+- **C1** is a power supply decoupling capacitor. It should be present if your setup is wire fed or if the power lines have significant resistance. Its value is not critical and can range from 100nF to 10uF.
 
 **Transmitter:**
 
@@ -107,13 +107,13 @@ The positive side (RD+) will thus be continuously shifted by about half the supp
 <a name="ass"></a>
 ## Assembly guidelines
 
-The use of a rapid prototyping board called "Breadboard" can eventually work but will give poor results (you will definitely have frame drops). This is due to the fact that Ethernet is a fast signal (its spectrum is at least 20MHz wide) which means that the parasitic capacities presented by a Breadboard will significantly tend to "smooth" this fast signal. Without mentioning possible crosstalk effects due to the construction of the Breadboard.
+The use Breadboards can eventually work but will give poor results (you will definitely have frame drops). This is due to the fact that Ethernet is a fast signal (its spectrum is at least 20MHz wide) which means that the parasitic capacities presented by a Breadboard will significantly tend to "smooth" this fast signal. Without mentioning possible crosstalk effects due to the construction of the Breadboard.
 
-The use of a "Perfboard" rapid soldering circuit gives satisfactory results if the realization is careful; the legs of the components must be cut and the Ethernet wires (if there are any) must remain short.
+The use of a Perfboard gives satisfactory results if the realization is careful; the legs of the components must be cut and the Ethernet wires (if there are any) must remain short.
 
 ![alt text](https://github.com/holysnippet/pico_eth_doc/blob/main/images/boardmagjack.png "DIY Pico E")
 
-To make a quick first try you should try to recover the transformer of a used Ethernet device. It should be a 10/100 Base-T transformer. They are abundant. Also think (if you can) about getting the MAC address of the donor device: you will be able to assign it to your shiny new Pico-E !
+To make a quick first try you should try to recover the transformer of a used Ethernet device. It should be a 10/100 Base-T transformer, they are abundant. Also think (if you can) about getting the MAC address of the donor device: you will be able to assign it to your shiny new Pico-E !
 
 ![alt text](https://github.com/holysnippet/pico_eth_doc/blob/main/images/mbtra.png "Ethernet transformer")
 
@@ -123,7 +123,7 @@ There is also another option, the "MagJack Ethernet" type plugs (this is a regis
 
 ![alt text](https://github.com/holysnippet/pico_eth_doc/blob/main/images/magjack.png "Magjack integrated Ethernet transformer")
 
-The other components are standard passive. You can buy them or desolder them if you have access to "electronic waste".
+The other components are standard passives. You can buy them or desolder them if you have access to electronic waste.
 
 <a name="tro"></a>
 ## Hardware troubleshooting guide
