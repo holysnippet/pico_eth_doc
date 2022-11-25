@@ -22,8 +22,13 @@ This library allows you to add Ethernet 10Base-T compatible connectivity to your
 
 - [Create your own Pico E project](#cre)
 
-- [lwIP stack tuning](#lwi)
+- [Using the source code](#src)
 
+- [Using the stack](#stk)
+
+- [Known software issues](#kno)
+
+- [lwIP stack tuning](#lwi)
 
 ## Caution, early release
 
@@ -172,9 +177,7 @@ The source code is not finished. This version is stable and can be used in your 
 
 ### Steps:
 
-- Get the code, you can make a clone of the GitHub repository of the source code:
-
-Navigate to your development folder, then:
+- Get the code, you can make a clone of the GitHub repository of the source code, navigate to your development folder, then:
 ```bash
 git clone https://github.com/holysnippet/pico_eth.git
 ```
@@ -185,6 +188,76 @@ https://github.com/holysnippet/pico_eth
 - Using the method of your choice (VS Code or other) make sure that the **PICO_SDK_PATH** environment variable is correctly set.
 
 - The project should compile.
+
+<a name="src"></a>
+## Using the source code
+
+For the moment this project does not take advantage of CMake to facilitate its distribution. You can start from the delivered sample project and customize the lwIP options there.
+
+All files required for Ethernet support are in the "includes" directory of the sample project. This is very little because everything else is already in the Pico SDK!
+
+If you want to add Ethernet support to an existing project the contents of the CMakeLists.txt file will be of great help. It contains everything you need. The Pico SDK has to find the lwipopts.h file of our project; if you look carefully I use the line : 
+
+```cmake
+# lwIP : Not sure, allows LwIP to find lwipopts.h
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_LIST_DIR}/includes)
+```
+
+This may not be the most sensible solution... You will also need to make sure that CMake generates the PIO program correctly. You can refer to the content of the provided CMakeLists.txt.
+
+<a name="stk"></a>
+## Using the stack
+
+lwIP is currently running in NO_SYS=1 mode, which means that it must be initialized at the beginning of the program and then we must periodically pass the execution flow to it. An interrupt version (NO_SYS=0) is in progress and a version taking advantage of FreeRTOS is planned.
+
+Most of the work is done in the network_init() function in main.c.
+
+You have to configure your network interface, remember to change the MAC address! You can specify if you want to use DHCP or not, a default address, a hostname. There are some things missing like an Ethernet LED emulation. 
+
+You can also configure the pins of the Pico to use for the Ethernet port.
+
+### Important detail !
+You can use any pins for the Ethernet port. The only condition is that the two pins of the TX must follow each other. For example **if TX_NEG is 16 then TX_POS WILL be 17.** There is no condition for the RX pin; try to choose a pin that is far from potentially noisy devices.
+
+Then the applications are initialized before entering the main loop which starts with the "while(1)".
+
+You will then have to call eth_pio_arch_poll() periodically between the processing of your application.
+
+### Pico resources used
+1 DMA interrupt
+
+1 PIO interrupt
+
+3 pins
+
+Only 1 of the 2 PIO modules
+
+4 DMA channels (Could be reduced)
+
+RAM : TBD (Could be reduced)
+
+FLASH : TBD
+
+<a name="kno"></a>
+## Known software issues
+
+You should only run this code at a system clock of 120MHz or 240MHz (overclock). Without going into details it is because of the fractional divisor of the PIO clock. It is quite possible that it will still work fine at other speeds, but strictly no testing has been done!
+
+The code should work as well on core 0 as on core 1 but strictly no testing has been done on core 1.
+
+Same for the PIO module, the code has only been tested on the PIO 0.
+
+The PIO code needs to be reworked, there is no NLP detection on the RX side.
+
+lwIP only works in NO_SYS=1 for the moment.
+
+No method of unloading the code at the moment (deInit()).
+
+No RAM/FLASH profiling performed at this time.
+
+Ethernet LEDs are not emulated yet (DAMN).
+
+A software diagnostic bench would be welcome to test and fine-tune the Ethernet transceiver.
 
 <a name="lwi"></a>
 ## lwIP stack tuning
