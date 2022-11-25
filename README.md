@@ -255,7 +255,7 @@ No method of unloading the code at the moment (deInit()).
 
 No RAM/FLASH profiling performed at this time.
 
-Ethernet LEDs are not emulated yet (DAMN).
+Ethernet LEDs are not emulated yet.
 
 A software diagnostic bench would be welcome to test and fine-tune the Ethernet transceiver.
 
