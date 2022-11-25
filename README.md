@@ -63,6 +63,7 @@ I have tested many differential receivers (DIY, with standard 2N2222 or 2N3904 t
 
 With the right transistors or differential receiver chip, one could make a very clean setup! Feel free to help if you know of a good configuration or reference available! Ideally, the goal is to keep the assembly simple, without components that are too specific, expensive or complicated to procure. I put this simple and incorrect configuration so that people can simply test without investing too much. I've left some tracks further down (Physical interface possible improvements) if you want to dig deeper.
 
+<a name="eliface"></a>
 ![alt text](https://github.com/holysnippet/pico_eth_doc/blob/main/images/eliface.png "Electrical interface")
 
 (The values in the diagram are tested, **prefer them**, I advance intervals in the text)
@@ -140,7 +141,7 @@ If you find a value close to zero volts then you have (as I had) a transformer w
 
 This image is provided to allow you to quickly test your interface without having to compile the source code. It embeds a TCP iperf server version 2 only **(version 3 does not seem to be supported)**. There is also a HTTP test server. An NTP demo client runs permanently on the board. It queries an NTP server every 30 seconds and displays the result on the USB serial port.
 
-#### Program pins: (See electrical diagram)
+#### Program pins: [See electrical diagram](#eliface)
 
 >TX_NEG is on Pico GPIO 16
 
@@ -187,7 +188,7 @@ https://github.com/holysnippet/pico_eth
 
 - Using the method of your choice (VS Code or other) make sure that the **PICO_SDK_PATH** environment variable is correctly set.
 
-- The project should compile.
+- You should now be able to compile the code via your IDE or the classic way with cmake & make.
 
 <a name="src"></a>
 ## Using the source code
