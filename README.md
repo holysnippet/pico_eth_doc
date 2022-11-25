@@ -228,40 +228,33 @@ You will then have to call eth_pio_arch_poll() periodically between the processi
 If you need the "**netif**" structure to use the lwIP features you just have to include ethpio_arch.h which publishes the instance of this structure.
 
 ### Pico resources used
-1 DMA interrupt
-
-1 PIO interrupt
-
-3 pins
-
-Only 1 of the 2 PIO modules
-
-4 DMA channels (Could be reduced)
-
-RAM : TBD (Could be reduced)
-
-FLASH : TBD
+- 2 Interrupts
+- 3 Pins
+- Only 1 of the 2 PIO modules
+- 4 DMA channels (Could be reduced)
+- RAM : TBD (Could be reduced)
+- FLASH : TBD
 
 <a name="kno"></a>
 ## Known issues and limitations of the software - 0.1.0-beta
 
-You should only run this code at a system clock of 120MHz or 240MHz (overclock). Without going into details it is because of the fractional divisor of the PIO clock. It is quite possible that it will still work fine at other speeds, but strictly no testing has been done!
+- You should only run this code at a system clock of 120MHz or 240MHz (overclock). Without going into details it is because of the fractional divisor of the PIO clock. It is quite possible that it will still work fine at other speeds, but strictly no testing has been done!
 
-The code should work as well on core 0 as on core 1 but strictly no testing has been done on core 1.
+- The code should work as well on core 0 as on core 1 but strictly no testing has been done on core 1.
 
-Same for the PIO module, the code has only been tested on the PIO 0.
+- Same for the PIO module, the code has only been tested on the PIO 0.
 
-The PIO code needs to be reworked, there is no NLP detection on the RX side.
+- The PIO code needs to be reworked, there is no NLP detection on the RX side.
 
-lwIP only works in NO_SYS=1 for the moment.
+- lwIP only works in NO_SYS=1 for the moment.
 
-No method of unloading the code at the moment (deInit()).
+- No method of unloading the code at the moment (deInit()).
 
-No RAM/FLASH profiling performed at this time.
+- No RAM/FLASH profiling performed at this time.
 
-Ethernet LEDs are not emulated yet.
+- Ethernet LEDs are not emulated yet.
 
-A software diagnostic bench would be welcome to test and fine-tune the Ethernet transceiver.
+- A software diagnostic bench would be welcome to test and fine-tune the Ethernet transceiver.
 
 <a name="lwi"></a>
 ## lwIP stack tuning
