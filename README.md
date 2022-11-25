@@ -168,7 +168,7 @@ The source code is not finished. This version is stable and can be used in your 
 
 - The latest version of pico-sdk for RP2040 which is **1.4.0 is mandatory**.
 - Currently compiles with GCC 10.3.1 but compiles with earlier versions (at your own risk).
-- Visual Studio Code is used as IDE, the project folder is a VS Code workspace (some settings i.e. debug probe may be wrong !). But it is still possible to compile it in a classical way on the command line using cmake & make. 
+- Visual Studio Code is used as IDE. But it is still possible to compile it in a classical way on the command line using cmake & make. 
 
 ### Steps:
 
