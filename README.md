@@ -248,9 +248,9 @@ If you need the "**netif**" structure to use the lwIP features you just have to 
 
 - lwIP only works in NO_SYS=1 for the moment.
 
-- No method of unloading the code at the moment (deInit()).
+- No method to unload the code at the moment (deInit()).
 
-- No RAM/FLASH profiling performed at this time.
+- No RAM/FLASH usage profiling performed at this time.
 
 - Ethernet LEDs are not emulated yet.
 
