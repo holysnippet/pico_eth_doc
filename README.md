@@ -258,7 +258,7 @@ If you need the "**netif**" structure to use the lwIP features you just have to 
 
 <a name="lwi"></a>
 ## lwIP stack tuning
-The choices I made may not be suitable for your application as I torture test the stack to see how it works with the interface. **I can't go into details here.** lwIP configuration options are located in the provided file lwipopts.h. With only a few kilobytes of memory, you will have to make some compromises (i.e. max number of connections vs good throughput). There are many guides:
+The choices I made may not be suitable for your application as I torture test the stack to see how it works with the interface. **I can't go into details here.** lwIP configuration options are located in the provided file "includes/lwipopts.h". With only a few kilobytes of memory, you will have to make some compromises (i.e. max number of connections vs good throughput). There are many guides:
 
 https://lwip.fandom.com/wiki/Tuning_TCP
 
