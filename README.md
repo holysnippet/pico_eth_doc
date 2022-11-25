@@ -217,7 +217,7 @@ You have to configure your network interface, remember to change the MAC address
 You can also configure the pins of the Pico to use for the Ethernet port.
 
 ### Important detail !
-You can use any pins for the Ethernet port. The only condition is that the two pins of the TX must follow each other. For example **if TX_NEG is 16 then TX_POS WILL be 17.** There is no condition for the RX pin; try to choose a pin that is far from potentially noisy devices.
+You can use any pins for the Ethernet port. The only condition is that the two pins of the TX must follow each other. For example **if TX_NEG is 16 then TX_POS WILL be 17.** There is no condition for the RX pin.
 
 Then the applications are initialized before entering the main loop which starts with the "while(1)".
 
