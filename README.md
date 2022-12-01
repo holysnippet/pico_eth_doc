@@ -169,6 +169,12 @@ The hostname of the card (which you can use if your network infrastructure allow
 <a name="cre"></a>
 ## Source code compilation
 
+**Temporary remark!**
+
+**The source code has just been passed in Git module.**
+
+**You can still compile it directly but the following documentation is out of date! It will be corrected in the next few hours.**
+
 The source code is not finished. This version is stable and can be used in your own projects. Some things are missing and some things can be improved, but the calls to initialize Ethernet will (in all likelihood) remain the same. Everything else (development and deployment of your application) depends on the lwIP library and its documentation. This is the same IP stack as the one used by the Pico W.
 
 ### Software requirements:
