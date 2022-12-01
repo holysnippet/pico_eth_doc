@@ -6,7 +6,9 @@ This library allows you to add Ethernet 10Base-T compatible connectivity to your
 - It is not recommended to connect the electronic assemblies described on this page to equipment that uses or provides **Power over Ethernet (PoE).**
 - It is not recommended to connect to Ethernet without an isolation transformer, it's electrically insecure and will result in more lost frames!
 
-**Sample project and code is in this repository: https://github.com/holysnippet/pico_eth**
+**Ethernet lib. & lwIP driver are in this repository: https://github.com/holysnippet/pico_eth**
+
+**Sample project is in this repository : https://github.com/holysnippet/pico_eth_demo**
 
 - [What to expect from such a set-up?](#wte)
 
