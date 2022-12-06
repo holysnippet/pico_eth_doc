@@ -18,7 +18,7 @@ This library allows you to add Ethernet 10Base-T compatible connectivity to your
 
 - [Assembly guidelines](#ass)
 
-- [Hardware troubleshooting guide](#tro)
+- [Troubleshooting guide](#tro)
 
 - [Using the UF2 test image](#usi)
 
@@ -128,19 +128,19 @@ There is also another option, the "MagJack Ethernet" type plugs (this is a regis
 The other components are standard passives. You can buy them or desolder them if you have access to electronic waste.
 
 <a name="tro"></a>
-## Hardware troubleshooting guide
+## Troubleshooting guide
 
-This section has not yet been written due to lack of experimentation. It is possible that some Ethernet transformers are not suitable. If your setup does not work with the UF2 image provided then you most likely have an Ethernet signal integrity problem. You can open a GitHub issue but don't expect quick help.
+This section is incomplete due to lack of experimentation. It is possible that some Ethernet transformers are not suitable. If your setup does not work with the UF2 image provided then you most likely have an Ethernet signal integrity problem. You can open a GitHub issue but don't expect quick help. Here is a list of things to check:
 
-If you use two Picos simultaneously **make sure they do not have the same MAC address!** Remember to change it systematically.
+- If you use two Picos simultaneously **make sure they do not have the same MAC address!** Remember to change it systematically.
 
-Make sure your program sets the Pico's system clock to exactly **120MHz or 240MHz.** This is listed in the program limitations section.
+- Make sure your program sets the Pico's system clock to exactly **120MHz or 240MHz.** This is listed in the program limitations section.
 
-The biasing voltage is the most important parameter and is the only thing you can check in case of a problem. It should be 0.45 times the supply voltage of the Pico.
+- The biasing voltage is the most important parameter and is the only thing you can check in case of a problem. It should be 0.45 times the supply voltage of the Pico.
 
-As an indication, a measurement on one of my interfaces gives 1.45V (for a supply voltage of 3.25V).
+  As an indication, a measurement on one of my interfaces gives 1.45V (for a supply voltage of 3.25V).
 
-If you find a value close to zero volts then you have (as I had) a transformer with the center point of the windings (RX & TX) connected together. You must populate **C3 & C4**.
+- If you find a value close to zero volts then you have (as I had) a transformer with the center point of the windings (RX & TX) connected together. You must populate **C3 & C4**.
 
 
 
